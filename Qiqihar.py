@@ -9,27 +9,30 @@ Created on Sun Jan 13 12:19:29 2019
 class Circuit:
     'The Boolean Circuit Base Class'
     
-    def __init__(self, numInput, exprR):
-        self.numInput = numInput
-        self.exprR = exprR
+    def __init__(self, expr):
+        if type(expr) == str:
+            self.ruleR = expr
+            self.type = 1
+        else:
+            self.func = expr
+            self.type = 2
     
-    def __processExpr(self):
-        self.exprP = self.exprR.split('+')
+    def __processRule(self):
+        self.ruleP = self.ruleR.split('+')
     
     def __call__(self, boolInput):
-        return self.out(boolInput)
-        
+        if self.type == 1:
+            return self.out(boolInput)
+        else:
+            return self.func(boolInput)
+
     def out(self, boolInput):
-        self.__processExpr()
-        for item in self.exprP:
+        self.__processRule()
+        for item in self.ruleP:
             if boolInput == item:
                 return "1"
         return "0"
 
-AND = Circuit(2,"11")
-OR = Circuit(2,"10+01+11")
-NOT = Circuit(1,"0")
-
-# t1 = Circuit(NOT(AND(AND()+OR())))
-def t1(intext):
-    return NOT(OR(AND(intext[0:2])+OR(intext[2:4])))
+AND = Circuit("11")
+OR = Circuit("10+01+11")
+NOT = Circuit("0")
