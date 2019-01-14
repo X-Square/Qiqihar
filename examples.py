@@ -39,3 +39,19 @@ print(MAJ3("101")) # 1
 ODD3 = Circuit("010+100+001+111")
 print(ODD3("011")) # 0
 print(ODD3("010")) # 1
+
+# Build a 3-8 Decoder
+G0 = Circuit("000")
+G1 = Circuit("001")
+G2 = Circuit("010")
+G3 = Circuit("011")
+G4 = Circuit("100")
+G5 = Circuit("101")
+G6 = Circuit("110")
+G7 = Circuit("111")
+Decoder3_8 = Circuit(lambda intext: G0(intext)+G1(intext)+
+                     G2(intext)+G3(intext)+G4(intext)+
+                     G5(intext)+G6(intext)+G7(intext))
+print(Decoder3_8("101")) # 00000100
+print(Decoder3_8("011")) # 00010000
+print(Decoder3_8("110")) # 00000010
